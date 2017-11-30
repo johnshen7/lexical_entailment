@@ -7,7 +7,7 @@ clf = joblib.load('models/svm.pkl')
 test_vectorized = pd.read_csv('lexical_entailment/bless2011/data_lex_test_vectorized.tsv', sep='\t', header=None)
 val_vectorized = pd.read_csv('lexical_entailment/bless2011/data_lex_val_vectorized.tsv', sep='\t', header=None)
 
-# Test and validation bc i'm lazy
+# Test and validation in one go bc i'm lazy
 for test_name, test_df in zip(['test', 'val'], [test_vectorized, val_vectorized]):
 	orig_rows, orig_cols = test_df.shape
 
