@@ -1,11 +1,26 @@
 import gensim 
 import sklearn 
 import pandas as pd
+import numpy as np
 
 # Load Google's pre-trained Word2Vec model.
-# model = gensim.models.Word2Vec.load_word2vec_format('./model/GoogleNews-vectors-negative300.bin', binary=True)  
+model = gensim.models.KeyedVectors.load_word2vec_format('vectors/GoogleNews-vectors-negative300.bin', binary=True)  
 
 # Train
-train = pd.read_csv('lexical_entailment/bless2011/data_lex_train.tsv', sep='\t', header=None, nrows=5)
+train = pd.read_csv('lexical_entailment/bless2011/data_lex_train.tsv', sep='\t', header=None)
 
-# Replace cols 1 and 2 with their vectors
+# Replace cols 1 and 2 with their vectors using the model and gensim
+# series = pd.Series(['gorilla', 'panda', 'cat'], index=[0,1,2])
+words_0 = train[0]
+words_1 = train[1]
+
+def vectorize_word(word):
+	if word in model.wv:
+		return pd.Series(model.wv[word])
+	else:
+		return pd.Series([np.nan] * 300)
+vectors_0 = words_0.apply(vectorize_word)
+vectors_1 = words_1.apply(vectorize_word)
+y = train[[2]]
+vectors_x = pd.concat([vectors_0, vectors_1, y], axis = 1)
+vectors_x.to_csv('lexical_entailment/bless2011/data_lex_train_vectorized.tsv', sep='\t', header=False, index=False)
