@@ -2,10 +2,10 @@ from sklearn.externals import joblib
 import pandas as pd
 from sklearn.metrics import accuracy_score
 
-clf = joblib.load('models/svm_asym.pkl')
+clf = joblib.load('models/svm.pkl')
 test = pd.read_csv('lexical_entailment/bless2011/data_lex_test.tsv', sep='\t', header=None)
-test_vectorized = pd.read_csv('lexical_entailment/bless2011/data_lex_test_vectorized_asym.tsv', sep='\t', header=None)
-val_vectorized = pd.read_csv('lexical_entailment/bless2011/data_lex_val_vectorized_asym.tsv', sep='\t', header=None)
+test_vectorized = pd.read_csv('lexical_entailment/bless2011/data_lex_test_vectorized.tsv', sep='\t', header=None)
+val_vectorized = pd.read_csv('lexical_entailment/bless2011/data_lex_val_vectorized.tsv', sep='\t', header=None)
 
 def evaluate(test_name):
 	if test_name == 'val':
