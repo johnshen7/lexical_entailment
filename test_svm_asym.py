@@ -3,10 +3,10 @@ import pandas as pd
 import numpy as np
 import sklearn.metrics as metrics
 
-clf = joblib.load('models/svm.pkl')
+clf = joblib.load('models/svm_asym.pkl')
 test = pd.read_csv('lexical_entailment/bless2011/data_lex_test.tsv', sep='\t', header=None)
-test_vectorized = pd.read_csv('lexical_entailment/bless2011/data_lex_test_vectorized.tsv', sep='\t', header=None)
-val_vectorized = pd.read_csv('lexical_entailment/bless2011/data_lex_val_vectorized.tsv', sep='\t', header=None)
+test_vectorized = pd.read_csv('lexical_entailment/bless2011/data_lex_test_vectorized_asym.tsv', sep='\t', header=None)
+val_vectorized = pd.read_csv('lexical_entailment/bless2011/data_lex_val_vectorized_asym.tsv', sep='\t', header=None)
 
 def evaluate(test_name):
 	if test_name == 'val':
