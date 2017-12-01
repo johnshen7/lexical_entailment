@@ -38,7 +38,7 @@ df = pd.read_csv(path_to_dataset, sep='\t', header=None)
 
 # Replace cols 1 and 2 with their vectors using the model and gensim
 words_0 = df[0]
-words_1 = df[[1]]
+words_1 = df[1]
 y = df[[2]]
 
 def vectorize_word(word):
@@ -51,6 +51,8 @@ def vectorize_word(word):
 vectors_0 = words_0.apply(vectorize_word)
 vectors_1 = words_1.apply(vectorize_word)
 
+def cosine_float(v1, v2):
+	return float(cosine_similarity(v1,v2))
 def merge_vectors(v1, v2, method):
 	print "method", method
 	# Concat
@@ -68,10 +70,11 @@ def merge_vectors(v1, v2, method):
 		b = pd.DataFrame(np.sqrt(np.square(a.values).sum(axis=1)))
 		return pd.concat([a, b, y], axis = 1)
 	elif method == 'cosine':
-		print 'cosine'
-		cos =
-		return pd.concat([cosine_similarity(v1, v2),
-
+		#this fails???
+		print "cosine"
+		vec_cos = np.vectorize(cosine_float)
+		cos = pd.DataFrame(vec_cos(v1, v2))
+		return pd.concat([cos, y], axis = 1)
 
 vectors_x = merge_vectors(vectors_0, vectors_1, method)
 vectors_x.to_csv(path_to_vectorized, sep='\t', header=False, index=False)

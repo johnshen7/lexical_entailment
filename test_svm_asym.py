@@ -36,10 +36,14 @@ def evaluate(test_name):
 	print true_count, preds_count, orig_rows
 
 	num_correct = metrics.accuracy_score(y, preds, normalize=False)
-
-
+	dif = []
+	for i in range(len(preds)):
+		if preds[i] != y.values[i]:
+			print(test.iloc[i])
+			dif.append(test.iloc[i])
+	print 'number of differences: ', len(dif)
 	print test_name, ": percentage non-nan correct:", num_correct/float(test_df.shape[0])
 	print test_name, ": percentage correct overall", num_correct/float(orig_rows)
 
 evaluate('test')
-evaluate('val')
+#evaluate('val')
