@@ -1,5 +1,6 @@
 from sklearn.externals import joblib
 import pandas as pd
+import numpy as np
 from sklearn.metrics import accuracy_score
 
 clf = joblib.load('models/svm_asym.pkl')
@@ -25,14 +26,14 @@ def evaluate(test_name):
 
 	preds = clf.predict(X)
 
-	true_count = 0
-	for p in y:
-		if p:
-			true_count += 1
-	print true_count, orig_rows
+	true_count = y.sum()
+	preds_count = preds.sum()
+
+	print "True", accuracy_score(preds[y == 1], y[y == 1])
+	print "False", accuracy_score(preds[y == 0], y[y == 0])
+	print true_count, preds_count, orig_rows
 
 	num_correct = accuracy_score(y, preds, normalize=False)
-
 
 
 	print test_name, ": percentage non-nan correct:", num_correct/float(test_df.shape[0])
