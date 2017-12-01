@@ -1,9 +1,10 @@
 #!/usr/bin/env python
-import gensim 
+import gensim
 import pandas as pd
 import numpy as np
 import sys
 from sklearn import preprocessing
+from sklearn.metrics.pairwise import cosine_similarity
 
 """ USAGE: ./vectorizing.py path/to/model.bin path/to/dataset.tsv path/to/vectorized method
 path/to/model.bin: path to the binary gensim model. If 'default' is passed in, uses Google's pre-trained word2vec model
@@ -30,14 +31,14 @@ path_to_vectorized = sys.argv[3]
 method = sys.argv[4]
 
 # Load desired word model.
-model = gensim.models.KeyedVectors.load_word2vec_format(path_to_model, binary=True)  
+model = gensim.models.KeyedVectors.load_word2vec_format(path_to_model, binary=True)
 
 # Read in data to vectorize
 df = pd.read_csv(path_to_dataset, sep='\t', header=None)
 
 # Replace cols 1 and 2 with their vectors using the model and gensim
 words_0 = df[0]
-words_1 = df[1]
+words_1 = df[[1]]
 y = df[[2]]
 
 def vectorize_word(word):
@@ -66,6 +67,11 @@ def merge_vectors(v1, v2, method):
 		# squared diff - can't tell if they mean the mag^2 or ea element sq?
 		b = pd.DataFrame(np.sqrt(np.square(a.values).sum(axis=1)))
 		return pd.concat([a, b, y], axis = 1)
+	elif method == 'cosine':
+		print 'cosine'
+		cos =
+		return pd.concat([cosine_similarity(v1, v2),
+
 
 vectors_x = merge_vectors(vectors_0, vectors_1, method)
 vectors_x.to_csv(path_to_vectorized, sep='\t', header=False, index=False)

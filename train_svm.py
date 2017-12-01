@@ -12,4 +12,4 @@ y = train.iloc[:, -1]
 clf = svm.SVC()
 clf.fit(X, y)
 
-joblib.dump(clf, 'models/svm.pkl') 
+joblib.dump(clf, 'models/svm.pkl')
