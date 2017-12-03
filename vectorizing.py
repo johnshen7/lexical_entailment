@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import jieba
 import gensim
 import pandas as pd
 import numpy as np
@@ -19,6 +20,9 @@ concat
 ./vectorizing.py default lexical_entailment/bless2011/data_lex_train.tsv lexical_entailment/bless2011/data_lex_train_vectorized_asym.tsv asym
 ./vectorizing.py default lexical_entailment/bless2011/data_lex_test.tsv lexical_entailment/bless2011/data_lex_test_vectorized_asym.tsv asym
 ./vectorizing.py default lexical_entailment/bless2011/data_lex_val.tsv lexical_entailment/bless2011/data_lex_val_vectorized_asym.tsv asym
+
+./vectorizing.py vectors/wiki.zh.vec lexical_entailment/baidu2017/dataset.txt lexical_entailment/baidu2017/dataset_vectorized.tsv concat
+
 """
 
 if len(sys.argv) != 5:
@@ -31,7 +35,7 @@ path_to_vectorized = sys.argv[3]
 method = sys.argv[4]
 
 # Load desired word model.
-model = gensim.models.KeyedVectors.load_word2vec_format(path_to_model, binary=True)
+model = gensim.models.KeyedVectors.load_word2vec_format(path_to_model, unicode_errors='ignore')
 
 # Read in data to vectorize
 df = pd.read_csv(path_to_dataset, sep='\t', header=None)
