@@ -50,7 +50,7 @@ def vectorize_word(word):
 		return pd.Series(model.wv[word])
 	else:
 		# The pretrained word2vec model has dimensionality 300
-		return pd.Series([0] * 300)
+		return pd.Series([np.nan] * 300)
 
 vectors_0 = words_0.apply(vectorize_word)
 vectors_1 = words_1.apply(vectorize_word)
@@ -59,15 +59,15 @@ def merge_vectors(v1, v2, method):
 	print "method", method
 	# Concat
 	if method == 'concat':
-		return pd.concat([vectors_0, vectors_1, y], axis = 1)
+		return pd.concat([v1, v2, y], axis = 1)
 	elif method == 'diff':
 		# Roller 2014 says to normalize the difference
-		diff = vectors_0 - vectors_1
+		diff = v1 - v2
 		return pd.concat([diff, y], axis = 1)
 	elif method == 'asym':
 		print "asym"
 		# diff
-		a = vectors_0 - vectors_1
+		a = v1 - v2
 		# squared diff - can't tell if they mean the mag^2 or ea element sq?
 		b = pd.DataFrame(np.sqrt(np.square(a.values).sum(axis=1)))
 		return pd.concat([a, b, y], axis = 1)
