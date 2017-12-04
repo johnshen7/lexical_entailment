@@ -58,5 +58,5 @@ def evaluate(test_name):
 	print test_name, ": percentage non-nan correct:", num_correct/float(test_df.shape[0])
 	print test_name, ": percentage correct overall", num_correct/float(orig_rows)
 
-evaluate('test')
-#evaluate('val')
+#evaluate('test')
+evaluate('val')
