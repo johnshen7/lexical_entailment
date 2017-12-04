@@ -2,11 +2,12 @@ from sklearn import svm
 from sklearn.cross_validation import train_test_split
 import pandas as pd
 import numpy as np
+import sys
 import sklearn.metrics as metrics
 
 ## Training
 # Open vectorized training file
-df = pd.read_csv('lexical_entailment/russian/lrwc_vectorized.tsv', sep='\t', header=None)
+df = pd.read_csv('../lexical_entailment/russian/lrwc_vectorized.tsv', sep='\t', header=None)
 
 train, test = train_test_split(df.values)
 print train.shape, test.shape
