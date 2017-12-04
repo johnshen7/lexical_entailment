@@ -57,6 +57,6 @@ for _ in range(iterations):
 print X.shape
 # Use SVM on feature vectors for final classifier
 final_clf = svm.SVC(class_weight='auto')
-final_clf.fit(X, y)
+final_clf.fit(feature_vector, y)
 
 joblib.dump(final_clf, 'models/svm_hfeature.pkl')
