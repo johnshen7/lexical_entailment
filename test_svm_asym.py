@@ -42,7 +42,7 @@ def evaluate(test_name):
 	dif = []
 	for i in range(len(preds)):
 		if preds[i] != y.values[i]:
-			print(test.iloc[i])
+			# print(test.iloc[i])
 			dif.append(test.iloc[i])
 	print 'number of differences: ', len(dif)
 
@@ -58,5 +58,5 @@ def evaluate(test_name):
 	print test_name, ": percentage non-nan correct:", num_correct/float(test_df.shape[0])
 	print test_name, ": percentage correct overall", num_correct/float(orig_rows)
 
-#evaluate('test')
+evaluate('test')
 evaluate('val')

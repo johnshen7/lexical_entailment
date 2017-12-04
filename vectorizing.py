@@ -35,7 +35,7 @@ path_to_vectorized = sys.argv[3]
 method = sys.argv[4]
 
 # Load desired word model.
-model = gensim.models.KeyedVectors.load_word2vec_format(path_to_model, unicode_errors='ignore')
+model = gensim.models.KeyedVectors.load_word2vec_format(path_to_model, unicode_errors='ignore', binary=True)
 
 # Read in data to vectorize
 df = pd.read_csv(path_to_dataset, sep='\t', header=None)
