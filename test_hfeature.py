@@ -38,7 +38,7 @@ for test_name, test_df in zip(['test', 'val'], [test_vectorized, val_vectorized]
 		h_clf.fit(X, y)
 
 		# Decision plane -- "H-feature detector"
-		p = np.array([h_clf.coef_[0][:300]])
+		p = np.array([h_clf.coef_[0][300:600]])
 
 		# Generate feature vector
 		# cos(H, w)
