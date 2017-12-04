@@ -5,8 +5,7 @@ import numpy as np
 import sys
 import sklearn.metrics as metrics
 
-## Training
-# Open vectorized training file
+# Open vectorized file
 df = pd.read_csv('../lexical_entailment/russian/lrwc_vectorized.tsv', sep='\t', header=None)
 
 train, test = train_test_split(df.values)
@@ -14,6 +13,7 @@ print train.shape, test.shape
 train = pd.DataFrame(train)
 test = pd.DataFrame(test)
 
+### Training
 # Remove NaN
 train.dropna(axis=0, inplace=True)
 X = train.iloc[:, :600]
@@ -24,7 +24,7 @@ clf.fit(X, y)
 
 print "Fit SVM"
 
-## Testing 
+### Testing 
 orig_rows, orig_cols = test.shape
 
 # Remove rows with NaN

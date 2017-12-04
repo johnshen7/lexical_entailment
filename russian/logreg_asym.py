@@ -3,8 +3,7 @@ from sklearn.cross_validation import train_test_split
 import sklearn.metrics as metrics
 import pandas as pd
 
-### Training
-# Open vectorized training file
+# Open vectorized file
 df = pd.read_csv('../lexical_entailment/russian/lrwc_vectorized_asym.tsv', sep='\t', header=None)
 
 train, test = train_test_split(df.values)
@@ -12,6 +11,7 @@ print train.shape, test.shape
 train = pd.DataFrame(train)
 test = pd.DataFrame(test)
 
+### Training
 # Remove NaN
 train.dropna(axis=0, inplace=True)
 X = train.iloc[:, :-1]
