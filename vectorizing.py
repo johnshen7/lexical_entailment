@@ -50,7 +50,7 @@ def vectorize_word(word):
 		return pd.Series(model.wv[word])
 	else:
 		# The pretrained word2vec model has dimensionality 300
-		return pd.Series([0] * 300)
+		return pd.Series([np.nan] * 300)
 
 vectors_0 = words_0.apply(vectorize_word)
 vectors_1 = words_1.apply(vectorize_word)
