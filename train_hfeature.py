@@ -24,7 +24,7 @@ for _ in range(iterations):
     clf.fit(X, y)
 
     # Decision plane -- "H-feature detector"
-    p = np.array([clf.coef_[0][:300]])
+    p = np.array([clf.coef_[0][300:600]])
 
     # Generate feature vector
     # cos(H, w)
