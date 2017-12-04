@@ -1,6 +1,6 @@
 from sklearn.externals import joblib
 import pandas as pd
-from sklearn.metrics import accuracy_score
+import sklearn.metrics as metrics
 
 clf = joblib.load('models/svm_hfeature.pkl') 
 
@@ -22,7 +22,23 @@ for test_name, test_df in zip(['test', 'val'], [test_vectorized, val_vectorized]
 
 	preds = clf.predict(X)
 
-	num_correct = accuracy_score(y, preds, normalize=False)
+	true_count = y.sum()
+	preds_count = preds.sum()
+
+	dif = []
+	for i in range(len(preds)):
+		if preds[i] != y.values[i]:
+			dif.append(test_df.iloc[i])
+	print 'number of differences: ', len(dif)
+
+	print "precision", metrics.precision_score(y, preds)
+	print "recall", metrics.recall_score(y, preds)
+	print "f1", metrics.f1_score(y, preds)
+	print "True", metrics.accuracy_score(y[y == 1], preds[y == 1])
+	print "False", metrics.accuracy_score(y[y == 0], preds[y == 0])
+	print true_count, preds_count, orig_rows
+
+	num_correct = metrics.accuracy_score(y, preds, normalize=False)
 
 	print test_name, ": percentage non-nan correct:", num_correct/float(test_df.shape[0]) 
 	print test_name, ": percentage correct overall", num_correct/float(orig_rows)
