@@ -28,7 +28,7 @@ for test_name, test_df in zip(['test', 'val'], [test_vectorized, val_vectorized]
 	H = test_df.iloc[:, :300]
 	w = test_df.iloc[:, 300:600]
 
-	iterations = 1
+	iterations = 3
 
 	feature_vector = pd.DataFrame()
 
