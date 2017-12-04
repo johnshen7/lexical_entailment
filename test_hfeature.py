@@ -1,5 +1,7 @@
+from sklearn.linear_model import LogisticRegression as LogReg
 from sklearn.externals import joblib
 import pandas as pd
+import numpy as np
 import sklearn.metrics as metrics
 
 clf = joblib.load('models/svm_hfeature.pkl') 
@@ -11,8 +13,11 @@ val_vectorized = pd.read_csv('lexical_entailment/bless2011/data_lex_val_vectoriz
 for test_name, test_df in zip(['test', 'val'], [test_vectorized, val_vectorized]):
 	orig_rows, orig_cols = test_df.shape
 
+	print test_df.shape
 	# Remove rows with NaN
 	test_df.dropna(axis=0, inplace=True)
+
+	print test_df.shape
 
 	# Count number of rows removed
 	diff = orig_rows - test_df.shape[0]
@@ -20,7 +25,48 @@ for test_name, test_df in zip(['test', 'val'], [test_vectorized, val_vectorized]
 	X = test_df.iloc[:, :-1]
 	y = test_df.iloc[:, -1]
 
-	preds = clf.predict(X)
+	H = test_df.iloc[:, :300]
+	w = test_df.iloc[:, 300:600]
+
+	iterations = 3
+
+	feature_vector = pd.DataFrame()
+
+	for _ in range(iterations):
+        # Fit log reg
+		h_clf = LogReg()
+		h_clf.fit(X, y)
+
+		# Decision plane -- "H-feature detector"
+		p = np.array([h_clf.coef_[0][300:600]])
+
+		# Generate feature vector
+		# cos(H, w)
+		hw_sim = pd.DataFrame(np.dot(H.values, w.values.T).diagonal())
+		# cos(H, p)
+		hp_sim = pd.DataFrame(np.dot(H.values, p.T))
+		# cos(w, p)
+		wp_sim = pd.DataFrame(np.dot(w.values, p.T))
+		# cos((H - w), p)
+		hwp_sim = pd.DataFrame(np.dot((H.values - w.values), p.T))
+
+		# Union with previous feature vectors
+		new_df = pd.concat([feature_vector, hw_sim, hp_sim, wp_sim, hwp_sim], axis = 1)
+		print "new df dims:", new_df.shape
+		feature_vector = new_df
+
+		# Generate new <H, w> pairs
+		h_proj = np.dot(np.dot(H, p.T / p.sum()), p)
+		h_rej = np.array(H - h_proj)
+		h_rej_norm = h_rej / h_rej.sum(axis=1).reshape(h_rej.shape[0], -1)
+		H = pd.DataFrame(h_rej_norm)
+		w_proj = np.dot(np.dot(w, p.T / p.sum()), p)
+		w_rej = np.array(w - w_proj)
+		w_rej_norm = w_rej / w_rej.sum(axis=1).reshape(w_rej.shape[0], -1)
+		w = pd.DataFrame(w_rej_norm)
+		X = pd.concat([H, w], axis = 1)
+
+	preds = clf.predict(feature_vector)
 
 	true_count = y.sum()
 	preds_count = preds.sum()
