@@ -1,6 +1,7 @@
 from sklearn.externals import joblib
 import pandas as pd
-from sklearn.metrics import accuracy_score
+import numpy as np
+import sklearn.metrics as metrics
 
 clf = joblib.load('models/svm.pkl') 
 
@@ -22,7 +23,11 @@ for test_name, test_df in zip(['test', 'val'], [test_vectorized, val_vectorized]
 
 	preds = clf.predict(X)
 
-	num_correct = accuracy_score(y, preds, normalize=False)
+	print "precision", metrics.precision_score(y, preds)
+	print "recall", metrics.recall_score(y, preds)
+	print "f1", metrics.f1_score(y, preds)
+
+	num_correct = metrics.accuracy_score(y, preds, normalize=False)
 
 	print test_name, ": percentage non-nan correct:", num_correct/float(test_df.shape[0]) 
 	print test_name, ": percentage correct overall", num_correct/float(orig_rows)

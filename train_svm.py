@@ -9,7 +9,7 @@ train.dropna(axis=0, inplace=True)
 X = train.iloc[:, :-1]
 y = train.iloc[:, -1]
 
-clf = svm.LinearSVC(class_weight='balanced')
+clf = svm.LinearSVC(class_weight='auto')
 clf.fit(X, y)
 
 joblib.dump(clf, 'models/svm.pkl')
