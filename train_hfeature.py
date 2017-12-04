@@ -14,7 +14,7 @@ y = train.iloc[:, -1]
 H = train.iloc[:, :300]
 w = train.iloc[:, 300:600]
 
-iterations = 3
+iterations = 1
 
 feature_vector = pd.DataFrame()
 
