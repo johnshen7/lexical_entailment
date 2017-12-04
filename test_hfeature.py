@@ -11,8 +11,11 @@ val_vectorized = pd.read_csv('lexical_entailment/bless2011/data_lex_val_vectoriz
 for test_name, test_df in zip(['test', 'val'], [test_vectorized, val_vectorized]):
 	orig_rows, orig_cols = test_df.shape
 
+	print test_df.shape
 	# Remove rows with NaN
 	test_df.dropna(axis=0, inplace=True)
+
+	print test_df.shape
 
 	# Count number of rows removed
 	diff = orig_rows - test_df.shape[0]
