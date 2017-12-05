@@ -77,7 +77,7 @@ def merge_vectors(v1, v2, method):
 		#this fails???
 		print "cosine"
 		cos = pd.DataFrame(cosine_similarity(vectors_0.values, vectors_1.values).diagonal())
-		return pd.concat([v1, v2, cos, y], axis = 1)
+		return pd.concat([cos, y], axis = 1)
 
 vectors_x = merge_vectors(vectors_0, vectors_1, method)
 vectors_x.to_csv(path_to_vectorized, sep='\t', header=False, index=False)
