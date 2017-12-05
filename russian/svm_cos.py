@@ -20,15 +20,13 @@ train.dropna(axis=0, inplace=True)
 
 vectors_0 = train.loc[:, :299]
 vectors_1 = train.loc[:, 300:599]
-y = train.iloc[:, -1]
-cos = pd.DataFrame(cosine_similarity(vectors_0.values, vectors_1.values).diagonal())
-print cos
-print y
-train = pd.concat([cos, y], axis = 1)
+y = train.iloc[:, -1].reset_index(drop=True).astype(bool)
+cos = pd.DataFrame(cosine_similarity(vectors_0.values, vectors_1.values).diagonal()).reset_index(drop=True)
+
+train = pd.concat([cos, y], axis = 1, ignore_index=True)
 
 X = train.iloc[:, :-1]
 
-print train
 
 clf = svm.SVC()
 clf.fit(X, y)
@@ -44,11 +42,11 @@ diff = orig_rows - test.shape[0]
 
 vectors_0 = test.loc[:, :299]
 vectors_1 = test.loc[:, 300:599]
-y = train.iloc[:, -1]
-cos = pd.DataFrame(cosine_similarity(vectors_0.values, vectors_1.values).diagonal())
-test = pd.concat([cos, y], axis = 1)
+y = test.iloc[:, -1].reset_index(drop=True).astype(bool)
+cos = pd.DataFrame(cosine_similarity(vectors_0.values, vectors_1.values).diagonal()).reset_index(drop=True)
+test = pd.concat([cos, y], axis = 1, ignore_index=True)
 X = test.iloc[:, :-1]
-
+print X
 preds = clf.predict(X)
 
 print "precision", metrics.precision_score(y, preds)
