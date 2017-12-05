@@ -2,6 +2,7 @@ from sklearn.linear_model import LogisticRegression as LogReg
 from sklearn.cross_validation import train_test_split
 from sklearn import svm
 from sklearn.externals import joblib
+import sklearn.metrics as metrics
 import pandas as pd
 import numpy as np
 
@@ -16,12 +17,12 @@ test = pd.DataFrame(test)
 ### Training
 train.dropna(axis=0, inplace=True)
 X = train.iloc[:, :600]
-y = train.iloc[:, -1]
+y = train.iloc[:, -1].astype(bool)
 
 H = train.iloc[:, :300]
 w = train.iloc[:, 300:600]
 
-iterations = 3
+iterations = 2
 
 feature_vector = pd.DataFrame()
 
@@ -33,16 +34,21 @@ for _ in range(iterations):
 
     # Decision plane -- "H-feature detector"
     p = np.array([clf.coef_[0][300:600]])
+    print "found p"
 
     # Generate feature vector
     # cos(H, w)
     hw_sim = pd.DataFrame(np.dot(H.values, w.values.T).diagonal())
+    print "hw done"
     # cos(H, p)
     hp_sim = pd.DataFrame(np.dot(H.values, p.T))
+    print "hp done"
     # cos(w, p)
     wp_sim = pd.DataFrame(np.dot(w.values, p.T))
+    print "wp done"
     # cos((H - w), p)
     hwp_sim = pd.DataFrame(np.dot((H.values - w.values), p.T))
+    print "hwp done"
 
     # Union with previous feature vectors
     new_df = pd.concat([feature_vector, hw_sim, hp_sim, wp_sim, hwp_sim], axis = 1)
@@ -66,18 +72,19 @@ print X.shape
 # Use SVM on feature vectors for final classifier
 final_clf = svm.SVC(class_weight='auto')
 final_clf.fit(feature_vector, y)
+print "Training complete"
 
 ### Testing
 orig_rows, orig_cols = test.shape
 
 # Remove rows with NaN
-test_df.dropna(axis=0, inplace=True)
+test.dropna(axis=0, inplace=True)
 
 # Count number of rows removed
 diff = orig_rows - test.shape[0]
 
 X = test.iloc[:, :-1]
-y = test.iloc[:, -1]
+y = test.iloc[:, -1].astype(bool)
 
 H = test.iloc[:, :300]
 w = test.iloc[:, 300:600]
@@ -88,6 +95,7 @@ for _ in range(iterations):
     # Fit log reg
     h_clf = LogReg()
     h_clf.fit(X, y)
+    print "Log reg fit"
 
     # Decision plane -- "H-feature detector"
     p = np.array([h_clf.coef_[0][300:600]])
@@ -126,5 +134,5 @@ print "f1", metrics.f1_score(y, preds)
 
 num_correct = metrics.accuracy_score(y, preds, normalize=False)
 
-print "test : percentage non-nan correct:", num_correct/float(test_df.shape[0]) 
+print "test : percentage non-nan correct:", num_correct/float(test.shape[0]) 
 print "test : percentage correct overall", num_correct/float(orig_rows)
