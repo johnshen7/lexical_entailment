@@ -7,8 +7,7 @@ from sklearn.externals import joblib
 from sklearn.model_selection import cross_val_score
 from sklearn.linear_model import LogisticRegression as LogReg
 
-vectorized_file = 'lexical_entailment/bless2011/data_lex_train_vectorized_hfeature.tsv'
-train = pd.read_csv(vectorized_file, sep='\t', header=None)
+train = pd.read_csv('datasets/bless2011/data_lex_train_vectorized_asym.tsv', sep='\t', header=None)
 
 train.dropna(axis=0, inplace=True)
 X = train.iloc[:, :-1]

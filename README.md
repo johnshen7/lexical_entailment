@@ -1,2 +1,2 @@
-# lexical_entailment
+# Lexical Entailment
 CS182 Project
