@@ -7,7 +7,7 @@ import pandas as pd
 import numpy as np
 
 # Open vectorized file
-df = pd.read_csv('../lexical_entailment/russian/lrwc_vectorized.tsv', sep='\t', header=None)
+df = pd.read_csv('lrwc_vectorized.tsv', sep='\t', header=None)
 
 train, test = train_test_split(df.values)
 print train.shape, test.shape
@@ -134,5 +134,5 @@ print "f1", metrics.f1_score(y, preds)
 
 num_correct = metrics.accuracy_score(y, preds, normalize=False)
 
-print "test : percentage non-nan correct:", num_correct/float(test.shape[0]) 
+print "test : percentage non-nan correct:", num_correct/float(test.shape[0])
 print "test : percentage correct overall", num_correct/float(orig_rows)

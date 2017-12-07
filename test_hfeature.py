@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 import sklearn.metrics as metrics
 
-clf = joblib.load('models/svm_hfeature.pkl') 
+clf = joblib.load('models/svm_hfeature.pkl')
 
 test_vectorized = pd.read_csv('lexical_entailment/bless2011/data_lex_test_vectorized.tsv', sep='\t', header=None)
 val_vectorized = pd.read_csv('lexical_entailment/bless2011/data_lex_val_vectorized.tsv', sep='\t', header=None)
@@ -86,5 +86,5 @@ for test_name, test_df in zip(['test', 'val'], [test_vectorized, val_vectorized]
 
 	num_correct = metrics.accuracy_score(y, preds, normalize=False)
 
-	print test_name, ": percentage non-nan correct:", num_correct/float(test_df.shape[0]) 
+	print test_name, ": percentage non-nan correct:", num_correct/float(test_df.shape[0])
 	print test_name, ": percentage correct overall", num_correct/float(orig_rows)
