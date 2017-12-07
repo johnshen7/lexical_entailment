@@ -4,12 +4,10 @@ import sklearn.metrics as metrics
 import pandas as pd
 
 # Open vectorized training file
-df = pd.read_csv('../datasets/russian/lrwc_vectorized_asym.tsv', sep='\t', header=None)
+# Open vectorized files
+train = pd.read_csv('../datasets/bless2011/data_lex_train_vectorized_diff.tsv', sep='\t', header=None)
+test = pd.read_csv('../datasets/bless2011/data_lex_test_vectorized_diff.tsv', sep='\t', header=None)
 
-train, test = train_test_split(df.values)
-print train.shape, test.shape
-train = pd.DataFrame(train)
-test = pd.DataFrame(test)
 
 ### Training
 # Remove NaN
