@@ -7,7 +7,7 @@ import pandas as pd
 import numpy as np
 
 # Open vectorized file
-df = pd.read_csv('lrwc_vectorized.tsv', sep='\t', header=None)
+df = pd.read_csv('../datasets/russian/lrwc_vectorized.tsv', sep='\t', header=None)
 
 train, test = train_test_split(df.values)
 print train.shape, test.shape
@@ -22,7 +22,7 @@ y = train.iloc[:, -1].astype(bool)
 H = train.iloc[:, :300]
 w = train.iloc[:, 300:600]
 
-iterations = 2
+iterations = 1
 
 feature_vector = pd.DataFrame()
 
