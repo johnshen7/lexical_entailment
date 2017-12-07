@@ -14,7 +14,7 @@ test = pd.read_csv('../datasets/bless2011/data_lex_test_vectorized_diff.tsv', se
 ### Training
 # Remove NaN
 train.dropna(axis=0, inplace=True)
-X = train.iloc[:, :600]
+X = train.iloc[:, :-1]
 y = train.iloc[:, -1].astype(bool)
 
 clf = GaussianNB()
@@ -31,7 +31,7 @@ test.dropna(axis=0, inplace=True)
 # Count number of rows removed
 diff = orig_rows - test.shape[0]
 
-X = test.iloc[:, :600]
+X = test.iloc[:, :-1]
 y = test.iloc[:, -1].astype(bool)
 
 preds = clf.predict(X)
