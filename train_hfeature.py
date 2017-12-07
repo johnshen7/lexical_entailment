@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 
 # Open vectorized training file
-train = pd.read_csv('lexical_entailment/russian/lrwc-1.1-aggregated.tsv', sep='\t', header=None)
+train = pd.read_csv('lexical_entailment/bless2011/data_lex_train_vectorized.tsv', sep='\t', header=None)
 
 train.dropna(axis=0, inplace=True)
 X = train.iloc[:, :-1]
@@ -14,7 +14,7 @@ y = train.iloc[:, -1]
 H = train.iloc[:, :300]
 w = train.iloc[:, 300:600]
 
-iterations = 1
+iterations = 3
 
 feature_vector = pd.DataFrame()
 
@@ -59,4 +59,6 @@ print X.shape
 final_clf = svm.SVC(class_weight='balanced')
 final_clf.fit(feature_vector, y)
 
+vectors = pd.concat([feature_vector, y.astype(bool)], axis = 1)
+vectors.to_csv('lexical_entailment/bless2011/data_lex_train_vectorized_hfeature.tsv', sep='\t', header=False, index=False)
 joblib.dump(final_clf, 'models/svm_hfeature.pkl')
