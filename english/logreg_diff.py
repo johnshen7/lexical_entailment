@@ -7,7 +7,6 @@ import pandas as pd
 train = pd.read_csv('../datasets/bless2011/data_lex_train_vectorized_diff.tsv', sep='\t', header=None)
 test = pd.read_csv('../datasets/bless2011/data_lex_test_vectorized_diff.tsv', sep='\t', header=None)
 
-
 ### Training
 # Remove NaN
 train.dropna(axis=0, inplace=True)
