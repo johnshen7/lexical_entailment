@@ -5,16 +5,16 @@ import sys
 from sklearn import preprocessing
 
 """ USAGE: python vectorizing.py path/to/dataset.tsv path/to/vectorized method
-path/to/dataset.tsv: dataset to model vectors, assumes the last column has prediction. default is lexical_entailment/russian/lrwc_vectorized.tsv
+path/to/dataset.tsv: dataset to model vectors, assumes the last column has prediction. default is datasets/russian/lrwc_vectorized.tsv
 path/to/vectorized: desired output location
 method: diff, asym
 
-Example: python vectorizing.py default lexical_entailment/russian/lrwc_vectorized_diff.tsv diff
+Example: python vectorizing.py default datasets/russian/lrwc_vectorized_diff.tsv diff
 """
 if len(sys.argv) != 4:
     raise ValueError('Usage: python vectorizing.py path/to/model.bin path/to/dataset.tsv path/to/vectorized method')
 
-path_to_dataset = '../lexical_entailment/russian/lrwc_vectorized.tsv' if sys.argv[1] == 'default' else sys.argv[1]
+path_to_dataset = '../datasets/russian/lrwc_vectorized.tsv' if sys.argv[1] == 'default' else sys.argv[1]
 path_to_vectorized = sys.argv[2]
 method = sys.argv[3]
 

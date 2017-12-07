@@ -3,7 +3,7 @@ from sklearn.externals import joblib
 import pandas as pd
 import sklearn.metrics as metrics
 # Open vectorized training file
-train = pd.read_csv('lexical_entailment/bless2011/data_lex_train_vectorized_asym.tsv', sep='\t', header=None)
+train = pd.read_csv('datasets/bless2011/data_lex_train_vectorized_asym.tsv', sep='\t', header=None)
 
 # Remove NaN
 train.dropna(axis=0, inplace=True)
@@ -16,8 +16,8 @@ clf.fit(X, y)
 joblib.dump(clf, 'models/svm_asym.pkl')
 
 
-test_vectorized = pd.read_csv('lexical_entailment/bless2011/data_lex_test_vectorized_asym.tsv', sep='\t', header=None)
-val_vectorized = pd.read_csv('lexical_entailment/bless2011/data_lex_val_vectorized_asym.tsv', sep='\t', header=None)
+test_vectorized = pd.read_csv('datasets/bless2011/data_lex_test_vectorized_asym.tsv', sep='\t', header=None)
+val_vectorized = pd.read_csv('datasets/bless2011/data_lex_val_vectorized_asym.tsv', sep='\t', header=None)
 
 def evaluate(test_name):
 	if test_name == 'val':

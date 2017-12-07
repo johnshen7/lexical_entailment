@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 
 # Open vectorized training file
-train = pd.read_csv('lexical_entailment/russian/lrwc-1.1-aggregated.tsv', sep='\t', header=None)
+train = pd.read_csv('datasets/russian/lrwc-1.1-aggregated.tsv', sep='\t', header=None)
 
 train.dropna(axis=0, inplace=True)
 X = train.iloc[:, :-1]

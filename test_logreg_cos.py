@@ -4,8 +4,8 @@ import sklearn.metrics as metrics
 import sys
 from sklearn.externals import joblib
 
-test_vec = pd.read_csv('lexical_entailment/bless2011/data_lex_test_vectorized_cosine.tsv', sep='\t', header=None)
-val_vec = pd.read_csv('lexical_entailment/bless2011/data_lex_val_vectorized_cosine.tsv', sep='\t', header=None)
+test_vec = pd.read_csv('datasets/bless2011/data_lex_test_vectorized_cosine.tsv', sep='\t', header=None)
+val_vec = pd.read_csv('datasets/bless2011/data_lex_val_vectorized_cosine.tsv', sep='\t', header=None)
 clf = joblib.load('models/logreg_cosine.pkl')
 def evaluate(test_name):
 	if test_name == 'val':

@@ -13,17 +13,17 @@ path/to/dataset.tsv: dataset to vectorize. assumes the last column has predictio
 method: right now just 'concat'
 path/to/vectorized: desired output location
 
-Example: ./vectorizing.py default lexical_entailment/bless2011/data_lex_train.tsv \
-lexical_entailment/bless2011/data_lex_train_vectorized2.tsv \
+Example: ./vectorizing.py default datasets/bless2011/data_lex_train.tsv \
+datasets/bless2011/data_lex_train_vectorized2.tsv \
 concat
 
-./vectorizing.py default lexical_entailment/bless2011/data_lex_train.tsv lexical_entailment/bless2011/data_lex_train_vectorized_asym.tsv asym
-./vectorizing.py default lexical_entailment/bless2011/data_lex_test.tsv lexical_entailment/bless2011/data_lex_test_vectorized_asym.tsv asym
-./vectorizing.py default lexical_entailment/bless2011/data_lex_val.tsv lexical_entailment/bless2011/data_lex_val_vectorized_asym.tsv asym
+./vectorizing.py default datasets/bless2011/data_lex_train.tsv datasets/bless2011/data_lex_train_vectorized_asym.tsv asym
+./vectorizing.py default datasets/bless2011/data_lex_test.tsv datasets/bless2011/data_lex_test_vectorized_asym.tsv asym
+./vectorizing.py default datasets/bless2011/data_lex_val.tsv datasets/bless2011/data_lex_val_vectorized_asym.tsv asym
 
-./vectorizing.py vectors/wiki.zh.vec lexical_entailment/baidu2017/dataset.txt lexical_entailment/baidu2017/dataset_vectorized.tsv concat
+./vectorizing.py vectors/wiki.zh.vec datasets/baidu2017/dataset.txt datasets/baidu2017/dataset_vectorized.tsv concat
 
-./vectorizing.py default lexical_entailment/bless2011/data_lex_train.tsv lexical_entailment/bless2011/data_lex_train_vectorized_diff.tsv diff
+./vectorizing.py default datasets/bless2011/data_lex_train.tsv datasets/bless2011/data_lex_train_vectorized_diff.tsv diff
 
 """
 

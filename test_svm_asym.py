@@ -6,16 +6,16 @@ import sys
 
 try:
 	if sys.argv[1] == 'cosine':
-		test_vectorized = pd.read_csv('lexical_entailment/bless2011/data_lex_test_vectorized_cosine.tsv', sep='\t', header=None)
-		val_vectorized = pd.read_csv('lexical_entailment/bless2011/data_lex_val_vectorized_cosine.tsv', sep='\t', header=None)
+		test_vectorized = pd.read_csv('datasets/bless2011/data_lex_test_vectorized_cosine.tsv', sep='\t', header=None)
+		val_vectorized = pd.read_csv('datasets/bless2011/data_lex_val_vectorized_cosine.tsv', sep='\t', header=None)
 		clf = joblib.load('models/svm_cosine.pkl')
 except:
-	test_vectorized = pd.read_csv('lexical_entailment/bless2011/data_lex_test_vectorized_asym.tsv', sep='\t', header=None)
-	val_vectorized = pd.read_csv('lexical_entailment/bless2011/data_lex_val_vectorized_asym.tsv', sep='\t', header=None)
+	test_vectorized = pd.read_csv('datasets/bless2011/data_lex_test_vectorized_asym.tsv', sep='\t', header=None)
+	val_vectorized = pd.read_csv('datasets/bless2011/data_lex_val_vectorized_asym.tsv', sep='\t', header=None)
 	clf = joblib.load('models/svm_asym.pkl')
 
 
-test = pd.read_csv('lexical_entailment/bless2011/data_lex_test.tsv', sep='\t', header=None)
+test = pd.read_csv('datasets/bless2011/data_lex_test.tsv', sep='\t', header=None)
 
 
 def evaluate(test_name):

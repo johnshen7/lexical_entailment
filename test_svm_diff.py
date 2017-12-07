@@ -5,8 +5,8 @@ import sklearn.metrics as metrics
 
 clf = joblib.load('models/svm_diff.pkl') 
 
-test_vectorized = pd.read_csv('lexical_entailment/bless2011/data_lex_test_vectorized_diff.tsv', sep='\t', header=None)
-val_vectorized = pd.read_csv('lexical_entailment/bless2011/data_lex_val_vectorized_diff.tsv', sep='\t', header=None)
+test_vectorized = pd.read_csv('datasets/bless2011/data_lex_test_vectorized_diff.tsv', sep='\t', header=None)
+val_vectorized = pd.read_csv('datasets/bless2011/data_lex_val_vectorized_diff.tsv', sep='\t', header=None)
 
 # Test and validation in one go bc i'm lazy
 for test_name, test_df in zip(['test', 'val'], [test_vectorized, val_vectorized]):
