@@ -6,14 +6,19 @@ import sys
 import sklearn.metrics as metrics
 
 # Open vectorized file
-df = pd.read_csv('../datasets/russian/lrwc_vectorized_diff.tsv', sep='\t', header=None)
+# df = pd.read_csv('../datasets/russian/lrwc_vectorized_diff.tsv', sep='\t', header=None)
 
-train, test = train_test_split(df.values)
+# train, test = train_test_split(df.values)
+# print train.shape, test.shape
+# train = pd.DataFrame(train)
+# test = pd.DataFrame(test)
+
+
+# Open vectorized files
+train = pd.read_csv('../datasets/russian/lrwc_vectorized_diff_train.tsv', sep='\t', header=None)
+test = pd.read_csv('../datasets/russian/lrwc_vectorized_diff_test.tsv', sep='\t', header=None)
+
 print train.shape, test.shape
-train = pd.DataFrame(train)
-test = pd.DataFrame(test)
-
-
 ### Training
 # Remove NaN
 train.dropna(axis=0, inplace=True)

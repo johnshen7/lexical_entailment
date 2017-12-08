@@ -6,14 +6,19 @@ import sklearn.metrics as metrics
 import pandas as pd
 import numpy as np
 
-# Open vectorized file
-df = pd.read_csv('../datasets/russian/lrwc_vectorized.tsv', sep='\t', header=None)
+# # Open vectorized file
+# df = pd.read_csv('../datasets/russian/lrwc_vectorized.tsv', sep='\t', header=None)
 
-train, test = train_test_split(df.values)
+# train, test = train_test_split(df.values)
+# print train.shape, test.shape
+# train = pd.DataFrame(train)
+# test = pd.DataFrame(test)
+
+# Open vectorized files
+train = pd.read_csv('../datasets/russian/lrwc_vectorized_train.tsv', sep='\t', header=None)
+test = pd.read_csv('../datasets/russian/lrwc_vectorized_test.tsv', sep='\t', header=None)
+
 print train.shape, test.shape
-train = pd.DataFrame(train)
-test = pd.DataFrame(test)
-
 ### Training
 train.dropna(axis=0, inplace=True)
 X = train.iloc[:, :600]

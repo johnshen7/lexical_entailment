@@ -54,5 +54,5 @@ for file_name, num_cols in zip(['lrwc_vectorized.tsv', 'lrwc_vectorized_asym.tsv
 	test_name = split_name[0] + '_test.tsv'
 
 	df_vectorized_train.to_csv(train_name, sep='\t', index=False)
-	df_vectorized_test.to_csv(train_name, sep='\t', index=False)
+	df_vectorized_test.to_csv(test_name, sep='\t', index=False)
 
