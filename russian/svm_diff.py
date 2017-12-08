@@ -1,4 +1,4 @@
-from sklearn.linear_model import LogisticRegression as LogReg
+from sklearn import svm
 from sklearn.cross_validation import train_test_split
 import sklearn.metrics as metrics
 import pandas as pd
@@ -22,7 +22,7 @@ train.dropna(axis=0, inplace=True)
 X = train.iloc[:, :-1]
 y = train.iloc[:, -1].astype(bool)
 
-clf = LogReg()
+clf = svm.SVC(class_weight='auto')
 clf.fit(X, y)
 
 ### Testing

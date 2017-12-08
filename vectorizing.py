@@ -71,7 +71,7 @@ def merge_vectors(v1, v2, method):
 		# diff
 		a = v1 - v2
 		# squared diff - can't tell if they mean the mag^2 or ea element sq?
-		b = pd.DataFrame(np.sqrt(np.square(a.values).sum(axis=1)))
+		b = pd.DataFrame(np.dot(a,a))
 		return pd.concat([a, b, y], axis = 1)
 	elif method == 'cosine':
 		#this fails???
