@@ -19,16 +19,19 @@ train.dropna(axis=0, inplace=True)
 X = train.iloc[:, :-1]
 y = train.iloc[:, -1].astype(bool)
 
-clf = LogReg(class_weight='balanced')
-scores = cross_val_score(clf, X, y, scoring='f1', cv=5)
-print scores
-print 'average:', sum(scores)/len(scores)
+for gamma in [.01, .05, .1, .15]:
+    clf = svm.SVC(gamma=gamma)
+    #combined
+    scores = cross_val_score(clf, X, y, scoring='f1', cv=5)
+    print scores
+    print 'gamma, average:', gamma, sum(scores)/len(scores)
 
-vectorized_file = 'lexical_entailment/bless2011/data_lex_test_vectorized_asym.tsv'
-test = pd.read_csv(vectorized_file, sep='\t', header=None)
-test.dropna(axis=0, inplace=True)
-X_test = test.iloc[:, :-1]
-y_test = test.iloc[:, -1]
-clf.fit(X,y)
-pred = clf.predict(X_test)
-print 'test score:', metrics.f1_score(pred, y_test)
+    #seperate
+    vectorized_file = 'datasets/bless2011/data_lex_test_vectorized_asym.tsv'
+    test = pd.read_csv(vectorized_file, sep='\t', header=None)
+    test.dropna(axis=0, inplace=True)
+    X_test = test.iloc[:, :-1]
+    y_test = test.iloc[:, -1]
+    clf.fit(X,y)
+    pred = clf.predict(X_test)
+    print 'test score:', metrics.f1_score(pred, y_test)

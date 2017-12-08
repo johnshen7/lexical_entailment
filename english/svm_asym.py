@@ -15,7 +15,7 @@ train.dropna(axis=0, inplace=True)
 X = train.iloc[:, :-1]
 y = train.iloc[:, -1].astype(bool)
 
-clf = LogReg()
+clf = svm.SVC(class=balanced)
 clf.fit(X, y)
 
 ### Testing
@@ -38,5 +38,5 @@ print "f1", metrics.f1_score(y, preds)
 
 num_correct = metrics.accuracy_score(y, preds, normalize=False)
 
-print "test : percentage non-nan correct:", num_correct/float(test.shape[0]) 
+print "test : percentage non-nan correct:", num_correct/float(test.shape[0])
 print "test : percentage correct overall", num_correct/float(orig_rows)
