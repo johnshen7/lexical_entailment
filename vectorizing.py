@@ -17,13 +17,13 @@ Example: ./vectorizing.py default datasets/bless2011/data_lex_train.tsv \
 datasets/bless2011/data_lex_train_vectorized2.tsv \
 concat
 
-./vectorizing.py default datasets/bless2011/data_lex_train.tsv datasets/bless2011/data_lex_train_vectorized_asym.tsv asym
-./vectorizing.py default datasets/bless2011/data_lex_test.tsv datasets/bless2011/data_lex_test_vectorized_asym.tsv asym
-./vectorizing.py default datasets/bless2011/data_lex_val.tsv datasets/bless2011/data_lex_val_vectorized_asym.tsv asym
+./vectorizing.py default ../datasets/bless2011/data_lex_train.tsv ../datasets/bless2011/data_lex_train_vectorized_asym.tsv asym
+./vectorizing.py default ../datasets/bless2011/data_lex_test.tsv ../datasets/bless2011/data_lex_test_vectorized_asym.tsv asym
+./vectorizing.py default ../datasets/bless2011/data_lex_val.tsv ../datasets/bless2011/data_lex_val_vectorized_asym.tsv asym
 
 ./vectorizing.py vectors/wiki.zh.vec datasets/baidu2017/dataset.txt datasets/baidu2017/dataset_vectorized.tsv concat
 
-./vectorizing.py default datasets/bless2011/data_lex_train.tsv datasets/bless2011/data_lex_train_vectorized_diff.tsv diff
+./vectorizing.py default ../datasets/bless2011/data_lex_train.tsv ../datasets/bless2011/data_lex_train_vectorized_diff.tsv diff
 
 """
 
@@ -31,7 +31,7 @@ if len(sys.argv) != 5:
 	raise ValueError('Usage: ./vectorizing.py path/to/model.bin path/to/dataset.tsv method path/to/vectorized')
 
 
-path_to_model = 'vectors/GoogleNews-vectors-negative300.bin' if sys.argv[1] == 'default' else sys.argv[1]
+path_to_model = '../vectors/GoogleNews-vectors-negative300.bin' if sys.argv[1] == 'default' else sys.argv[1]
 path_to_dataset = sys.argv[2]
 path_to_vectorized = sys.argv[3]
 method = sys.argv[4]
@@ -40,12 +40,14 @@ method = sys.argv[4]
 model = gensim.models.KeyedVectors.load_word2vec_format(path_to_model, binary=True)
 
 # Read in data to vectorize
-df = pd.read_csv(path_to_dataset, sep='\t', header=None)
+df = pd.read_csv(path_to_dataset, sep='\t')
 
 # Replace cols 1 and 2 with their vectors using the model and gensim
 words_0 = df[0]
 words_1 = df[1]
 y = df[[2]]
+
+print "words"
 
 def vectorize_word(word):
 	if word in model.wv:
@@ -80,4 +82,4 @@ def merge_vectors(v1, v2, method):
 		return pd.concat([cos, y], axis = 1)
 
 vectors_x = merge_vectors(vectors_0, vectors_1, method)
-vectors_x.to_csv(path_to_vectorized, sep='\t', header=False, index=False)
+vectors_x.to_csv(path_to_vectorized, sep='\t', index=False)
